@@ -5,7 +5,7 @@ import com.mina.springdata.repository.FlightRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@DataMongoTest
 class CRUDTests {
 
     @Autowired
@@ -33,7 +33,7 @@ class CRUDTests {
 
         assertThat(flightRepository.findAll())
                 .hasSize(1)
-                .first().isEqualTo(flight);
+                .first().isEqualToComparingFieldByField(flight);
 
         flightRepository.deleteById(flight.getId());
 
